@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.dao.StudentDao">
+
+	<!-- 设置Student中的变量与数据库中的字段的对应关系 -->
+	<resultMap type="com.mybatis.pojo.Student" id="StudentMap">
+		<id column="STUDENT_ID" property="number" />
+		<result column="STUDENT_NAME" property="name" />
+		<result column="STUDENT_GENDER" property="gender" />
+		<result column="STUDENT_AGE" property="age" />
+		<result column="STUDENT_MAJOR" property="major" />
+	</resultMap>
+	<!-- 表的列 -->
+	<sql id="StudentMap_List">
+		STUDENT_ID , STUDENT_NAME, STUDENT_GENDER, STUDENT_AGE,
+		STUDENT_MAJOR
+	</sql>
+	<!-- 查询所有的学生账户信息 -->
+	<select id="findAll" resultMap="StudentMap">
+		select * from student_t
+	</select>
+	<select id="findone" resultMap="StudentMap">
+		select * from student_t where STUDENT_ID = 1
+	</select>
+</mapper>
