@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.dao.StudentDao">
+
+	<!-- 设置Student中的变量与数据库中的字段的对应关系 -->
+	<resultMap type="com.mybatis.pojo.Student" id="StudentMap">
+		<id column="STUDENT_ID" property="number" />
+		<result column="STUDENT_NAME" property="name" />
+		<result column="STUDENT_GENDER" property="gender" />
+		<result column="STUDENT_AGE" property="age" />
+		<result column="STUDENT_MAJOR" property="major" />
+	</resultMap>
+	<!-- 表的列 -->
+	<sql id="StudentMap_List">
+		STUDENT_ID , STUDENT_NAME, STUDENT_GENDER, STUDENT_AGE,
+		STUDENT_MAJOR
+	</sql>
+	<!-- 查询所有的学生账户信息 -->
+	<select id="findAll" resultMap="StudentMap">
+		select * from student_t stu order
+		by stu.student_id
+	</select>
+	<!-- 根据id查询个人信息 -->
+	<select id="findOne" resultMap="StudentMap">
+		select * from student_t where
+		STUDENT_ID = #{number}
+	</select>
+	<!-- 创建用户 -->
+	<insert id="add">
+		<!-- 在values中 String类型的数据都不需要添加" ' " 来表示是String型的 -->
+		insert into student_t
+		(student_id, student_name,
+		student_gender,
+		student_age, student_major)
+		values
+		(student_seq.nextval, #{name},
+		#{gender}, #{age}, #{major})
+	</insert>
+	<!-- 删除用户 -->
+	<delete id="delete">
+		delete from student_t stu where stu.student_id = #{number}
+	</delete>
+	<!-- 修改用户 -->
+	<update id="update">
+		<!-- 如果添加的是String型的数据，最后在前面加上 " ' " 不然可能会报错 -->
+		update student_t stu
+		set stu.student_name = '${name}',
+		stu.student_gender = '${gender}',
+		stu.student_age = ${age},
+		stu.student_major = '${major}'
+		where stu.student_id = ${number}
+	</update>
+</mapper>
