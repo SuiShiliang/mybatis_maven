@@ -28,8 +28,32 @@
 		select * from student_t where
 		STUDENT_ID = #{number}
 	</select>
+
+	<!-- 根据性别与专业查询数据 -->
+	<select id="findByGenderAndMajor" resultMap="StudentMap">
+		select *
+		from
+		student_t stu
+		where stu.student_gender = #{gender}
+		and stu.student_major
+		= #{major}
+	</select>
+
+	<!-- 查询学生的人数 -->
+	<select id="countStudent" resultType="long">
+		select count(*) from
+		student_t
+	</select>
+	<!-- 查询所有的专业 -->
+	<select id="findAllMajor" resultType="string">
+		select distinct(stu.student_major) from student_t stu
+	</select>
+
 	<!-- 创建用户 -->
-	<insert id="add">
+	<!-- 使用mybatis中自带方法进行id返回 useGeneratedKeys：true，表示有返回id； keyColumn： 存于数据库中的id代表的字段 
+		；keyProperty：类中对应的字段 -->
+	<insert id="add" useGeneratedKeys="true" keyColumn="student_id"
+		keyProperty="number">
 		<!-- 在values中 String类型的数据都不需要添加" ' " 来表示是String型的 -->
 		insert into student_t
 		(student_id, student_name,
@@ -41,11 +65,12 @@
 	</insert>
 	<!-- 删除用户 -->
 	<delete id="delete">
-		delete from student_t stu where stu.student_id = #{number}
+		delete from student_t stu where stu.student_id =
+		#{number}
 	</delete>
 	<!-- 修改用户 -->
 	<update id="update">
-		<!-- 如果添加的是String型的数据，最后在前面加上 " ' " 不然可能会报错 -->
+		<!-- 使用update set时，如果添加的是String型的数据，最后在前面加上 " ' " 不然可能会报错 -->
 		update student_t stu
 		set stu.student_name = '${name}',
 		stu.student_gender = '${gender}',

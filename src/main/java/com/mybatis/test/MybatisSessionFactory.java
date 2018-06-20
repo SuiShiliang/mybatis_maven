@@ -40,27 +40,36 @@ public class MybatisSessionFactory {
 		List<Student> list = dao.findAll();
 		System.out.println("查询所有账户信息：");
 		print.printAll(list,0);
-		System.out.println("根据id查询数据");
-		print.printAll(dao.findOne(6),1);
-		System.out.println("添加数据");
 		Student student = new Student();
+		/*System.out.println("根据id查询数据");
+		print.printAll(dao.findOne(6),1);*/
+		/*System.out.println("添加数据");
 		student.setName("添加");
 		student.setGender(Gender.Famale);
 		student.setAge(12);
 		student.setMajor("测试");
-		dao.add(student );
-		print.printAll(dao.findAll(),0);
+		dao.add(student);
+		print.printAll(dao.findAll(),0);*/
+		/*//输出返回来的id
+		System.out.println(student.getNumber());*/
 		System.out.println("修改数据");
 		student.setNumber(43);
+		student.setGender(Gender.Male);
 		student.setName("修改");
 		student.setMajor("修改测试");
 		dao.update(student);
 		print.printAll(dao.findOne(43),1);
-		System.out.println("删除数据");
+		/*System.out.println("删除数据");
 		dao.delete(44);
 		dao.delete(45);
 		dao.delete(46);
-		print.printAll(dao.findAll(),0);
+		print.printAll(dao.findAll(),0);*/
+		/*System.out.println("根据性别与专业查询");
+		print.printAll(dao.findByGenderAndMajor(Gender.Famale, "测试"),0);
+		System.out.println("所有的专业有:");
+		System.out.println(dao.findAllMajor().toString());
+		System.out.println("学生人数：");
+		System.out.println(dao.countStudent()+"个");*/
 	}
 
 }

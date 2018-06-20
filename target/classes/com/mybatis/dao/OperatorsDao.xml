@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.OperatorsDao">
+	<resultMap type="com.mybatis.pojo.Operators" id="Operators">
+		<id column="O_ID" property="id" />
+		<result column="O_USERNAME" property="username" />
+		<result column="O_PASSWORD" property="password" />
+		<result column="O_ROLE" property="role" />
+		<result column="O_DISABLED" property="disabled" />
+	</resultMap>
+
+	<select id="findByRoleAndDisable" resultMap="Operators">
+		select *
+		from
+		operators_t op
+		where op.o_role = #{role}
+		and op.o_disabled = #{disable}
+	</select>
+
+	<select id="countOperators" resultType="int">
+		select count(*) from
+		operators_t
+	</select>
+
+	<select id="findAllRoles" resultType="string">
+		select distinct(op.o_role)
+		from operators_t op
+	</select>
+
+	<select id="findByUsernameLike" resultMap="Operators">
+		<bind name="bindUsername" value="'%'+username + '%'" />
+		select * from operators_t op where op.o_username like #{bindUsername}
+	</select>
+
+	<update id="batchDisable">
+		update operators_t op set op.o_disabled = #{disabled}
+		where op.o_id in 
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<insert id="create" useGeneratedKeys="true" keyColumn="O_ID"
+		keyProperty="id">
+		insert into operators_t
+		(o_id, o_username, o_password,
+		o_role, o_disabled)
+		values
+		(operators_t_seq.nextval, #{username},
+		#{password}, #{role}, #{disabled})
+	</insert>
+
+
+</mapper>
