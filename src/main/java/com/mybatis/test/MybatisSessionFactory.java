@@ -26,10 +26,10 @@ public class MybatisSessionFactory {
 		StudentDao dao = session.getMapper(StudentDao.class);
 		List<Student> list = dao.findAll();
 		// System.out.println(list);
-		print.printAll(list,0);
+		print.printAll(list);
 		
 		Student ss = dao.findOne(2);
-		print.printAll(ss,1);
+		print.printAll(ss);
 		session.close();*/
 
 		// 使用appconfig.java配置获取类
@@ -38,38 +38,46 @@ public class MybatisSessionFactory {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		StudentDao dao = context.getBean(StudentDao.class);
 		List<Student> list = dao.findAll();
+		print.printFH();
 		System.out.println("查询所有账户信息：");
-		print.printAll(list,0);
+		print.printAll(list);
 		Student student = new Student();
 		/*System.out.println("根据id查询数据");
-		print.printAll(dao.findOne(6),1);*/
+		print.printAll(dao.findOne(6));*/
 		/*System.out.println("添加数据");
 		student.setName("添加");
 		student.setGender(Gender.Famale);
 		student.setAge(12);
 		student.setMajor("测试");
 		dao.add(student);
-		print.printAll(dao.findAll(),0);*/
+		print.printAll(dao.findAll());*/
 		/*//输出返回来的id
 		System.out.println(student.getNumber());*/
-		System.out.println("修改数据");
+		/*System.out.println("修改数据");
 		student.setNumber(43);
 		student.setGender(Gender.Male);
 		student.setName("修改");
 		student.setMajor("修改测试");
 		dao.update(student);
-		print.printAll(dao.findOne(43),1);
+		print.printAll(dao.findOne(43));*/
 		/*System.out.println("删除数据");
 		dao.delete(44);
 		dao.delete(45);
 		dao.delete(46);
-		print.printAll(dao.findAll(),0);*/
+		print.printAll(dao.findAll());*/
 		/*System.out.println("根据性别与专业查询");
-		print.printAll(dao.findByGenderAndMajor(Gender.Famale, "测试"),0);
+		print.printAll(dao.findByGenderAndMajor(Gender.Famale, "测试"));
 		System.out.println("所有的专业有:");
 		System.out.println(dao.findAllMajor().toString());
 		System.out.println("学生人数：");
 		System.out.println(dao.countStudent()+"个");*/
+		//打印一串符号
+		print.printFH();
+		System.out.println("根据姓名、性别、专业查询");
+		student.setName("");
+		student.setMajor("机电");
+		student.setGender(Gender.Male);
+		print.printAll(dao.search(student));
 	}
 
 }

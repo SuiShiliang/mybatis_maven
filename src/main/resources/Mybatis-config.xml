@@ -3,20 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- <properties resource="jdbc.properties"></properties>
-	
-  <environments default="development">
-    <environment id="development">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-      </dataSource>
-    </environment>
-  </environments>
-  <mappers>
-    <mapper resource="com.mybatis.dao/StudentDao.xml"/>
-  </mappers> -->
+	<typeAliases>
+		<!-- 使得dao.xml文件中可以省略前面的包名 -->
+		<package name="com.mybatis.pojo" />
+	</typeAliases>
+	<!-- <properties resource="jdbc.properties"></properties> <environments 
+		default="development"> <environment id="development"> <transactionManager 
+		type="JDBC"/> <dataSource type="POOLED"> <property name="driver" value="${jdbc.driverClassName}"/> 
+		<property name="url" value="${jdbc.url}"/> <property name="username" value="${jdbc.username}"/> 
+		<property name="password" value="${jdbc.password}"/> </dataSource> </environment> 
+		</environments> <mappers> <mapper resource="com.mybatis.dao/StudentDao.xml"/> 
+		</mappers> -->
 </configuration>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.BookInfoDao">
+	<!-- 由于在mybatis-config.xml文件中配置了<package>，所以不需要包名com.mybatis.pojo -->
+	<resultMap type="Books" id="books">
+		<!-- books书籍表 -->
+		<id column="BOOK_ID" property="book_id" />
+		<result column="BOOK_NAME" property="book_name" />
+		<result column="BOOK_INTRODUCTION" property="book_introduction" />
+		<!-- Press出版社表 -->
+		<association property="press" javaType="Press">
+			<id column="PR_ID" property="pr_id" />
+			<result column="PR_NAME" property="pr_name" />
+			<result column="PR_INTRODUCTION" property="pr_introduction" />
+		</association>
+		<!-- Authors作者表 -->
+		<collection property="authors" ofType="Authors" 
+			javaType="java.util.ArrayList" >
+			<id column="AU_ID" property="au_id" />
+			<result column="AU_NAME" property="au_name" />
+			<result column="AU_GENDER" property="au_gender" />
+			<result column="AU_INTRODUCTION" property="au_introduction" />
+		</collection>
+		<!-- BookComments书籍评论表 -->
+		<collection property="bookComments" ofType="BookComments"
+			javaType="java.util.ArrayList"		>
+			<id column="BOOK_COMMENT_ID" property="book_comment_id" />
+			<result column="BOOK_COMMENT" property="book_comment" />
+		</collection>
+	</resultMap>
+
+	<select id="findOne" resultMap="books">
+		select *
+		from books_t bo, authors_t au, author_book_t aub, press_t pr
+		where bo.book_id = #{bookId}
+		and bo.book_id = aub.book_id
+		and aub.author_id = au.au_id
+		and bo.book_press = pr.pr_id
+	</select>
+	
+	<select id="findOneAndBookComments" resultMap="books">
+		select *
+		  from books_t          bo,
+		       authors_t        au,
+		       author_book_t    aub,
+		       press_t          pr,
+		       book_comments_t  boc
+		 where bo.book_id = #{bookId}
+		   and bo.book_id = aub.book_id
+		   and aub.author_id = au.au_id
+		   and bo.book_press = pr.pr_id
+		   and bo.book_id = boc.book_id(+)
+	</select>
+	<select id="findAll" resultMap="books">
+		select *
+		from books_t bo, authors_t au, author_book_t aub, press_t pr
+		where bo.book_id = aub.book_id
+		and aub.author_id = au.au_id
+		and bo.book_press = pr.pr_id
+	</select>
+</mapper>

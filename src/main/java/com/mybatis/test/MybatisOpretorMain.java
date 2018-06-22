@@ -19,9 +19,9 @@ public class MybatisOpretorMain {
 				new AnnotationConfigApplicationContext(AppConfig.class);
 		OperatorsDao dao = context.getBean(OperatorsDao.class);
 		
-		String role ="HR";
+	/*	String role ="HR";
 		Boolean disable = true;
-		print.printAll(dao.findByRoleAndDisable(role, disable),2);
+		print.printAll(dao.findByRoleAndDisable(role, disable));*/
 		
 //		System.out.println(dao.countOperators());
 		
@@ -42,11 +42,12 @@ public class MybatisOpretorMain {
 		//批量修改用户的权限
 		Boolean disabled = true;
 		List<Integer> ids = new ArrayList<Integer>();
-		ids.add(26);
-		ids.add(27);
+		ids.add(2);
+		ids.add(3);
 		dao.batchDisable(ids, disabled);
 		//根据姓名模糊查询
-		print.printAll(dao.findByUsernameLike("老"),2);
+		print.printAll(dao.findByUsernameLike("老"));
+		
 	}
 
 }

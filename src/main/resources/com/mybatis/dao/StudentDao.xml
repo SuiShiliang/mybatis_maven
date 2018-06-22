@@ -46,7 +46,27 @@
 	</select>
 	<!-- 查询所有的专业 -->
 	<select id="findAllMajor" resultType="string">
-		select distinct(stu.student_major) from student_t stu
+		select
+		distinct(stu.student_major) from student_t stu
+	</select>
+
+	<!-- 根据姓名、性别、职责动态搜索 -->
+	<select id="search" resultMap="StudentMap">
+		select *
+		from student_t stu
+		<where>
+			<if test="name != null">
+				<bind name="bindUsername" value="'%' + name + '%'"/>
+				stu.student_name like #{bindUsername}
+			</if>
+			<if test="gender != null">
+				and stu.student_gender = #{gender}
+			</if>
+			<if test="major != null">
+				and stu.student_major = #{major}
+			</if>
+		</where>
+
 	</select>
 
 	<!-- 创建用户 -->

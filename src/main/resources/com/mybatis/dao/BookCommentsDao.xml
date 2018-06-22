@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.BookCommentsDao">
+
+	<resultMap type="BookComments" id="BookComments">
+		<id column="BOOK_COMMENT_ID" property="book_comment_id"/>
+		<result column="BOOK_COMMENT" property="book_comment"/>
+		<association property="book" javaType="Books">
+			<result column="BOOK_NAME" property="book_name" />
+		</association>
+	</resultMap>
+	<select id="findById" resultMap="BookComments">
+		select *
+		  from book_comments_t boc
+		  left join books_t bo
+		    on boc.book_id = bo.book_id
+		 where boc.book_comment_id = #{id}		
+	</select>
+</mapper>
