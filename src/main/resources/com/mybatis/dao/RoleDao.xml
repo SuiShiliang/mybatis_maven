@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.RoleDao">
+	<resultMap type="Role" id="Role">
+		<id column="ROLE_ID" property="id" />
+		<result column="ROLE_NAME" property="name" />
+		<result column="ROLE_DESCRIBE" property="describe" />
+		<collection property="permissions"
+			javaType="java.util.ArrayList" ofType="Permission">
+			<id column="PERMISSIONS_ID" property="id" />
+			<result column="PERMISSIONS_NAME" property="name" />
+			<result column="PERMISSIONS_DESCRIBE" property="describe" />
+		</collection>
+	</resultMap>
+	<select id="findAll" resultMap="Role">
+		select *
+		from role_t ro
+		right join role_permissions_t rop
+		on ro.role_id = rop.role_id
+		right join permissions_t pe
+		on rop.permissions_id = pe.permissions_id
+	</select>
+
+</mapper>

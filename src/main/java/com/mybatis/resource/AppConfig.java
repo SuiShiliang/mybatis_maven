@@ -18,11 +18,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 //@MapperScan 扫描的是java 和resource中的 mapper对象，即StudentDao.java和StudentDao.xml
 //注意在resource文件下的文件目录应是单独的的，
 //如：在Java中包名为com.mybatis.dao ，在resource中应是 com -> mybatis -> dao三层目录
-@MapperScan("com.mybatis.dao")
-@PropertySource("classpath:jdbc.properties")
+@MapperScan("com.mybatis.dao")//扫描mapper文件
+@PropertySource("classpath:jdbc.properties")//加载资源文件
 public class AppConfig {
-
-	@Bean
+	
+	@Bean//数据源配置，
 	public DataSource dataSource(Environment env) {
 		String url = env.getProperty("jdbc.url");
 		String username = env.getProperty("jdbc.username");
@@ -33,7 +33,7 @@ public class AppConfig {
 		ds.setDriverClassName(driverCclassName);
 		return ds;
 	}
-	@Bean
+	@Bean//mybatis 会话工厂
 	public SqlSessionFactoryBean sessionFactory(DataSource ds) {
 		SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
 		sf.setConfigLocation(new ClassPathResource("Mybatis-config.xml"));

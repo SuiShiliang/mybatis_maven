@@ -7,11 +7,21 @@
 		<!-- 使得dao.xml文件中可以省略前面的包名 -->
 		<package name="com.mybatis.pojo" />
 	</typeAliases>
-	<!-- <properties resource="jdbc.properties"></properties> <environments 
-		default="development"> <environment id="development"> <transactionManager 
-		type="JDBC"/> <dataSource type="POOLED"> <property name="driver" value="${jdbc.driverClassName}"/> 
-		<property name="url" value="${jdbc.url}"/> <property name="username" value="${jdbc.username}"/> 
-		<property name="password" value="${jdbc.password}"/> </dataSource> </environment> 
-		</environments> <mappers> <mapper resource="com.mybatis.dao/StudentDao.xml"/> 
-		</mappers> -->
+	<!-- 使用properties文件配置数据库源 -->
+	<!-- <properties resource="jdbc.properties"></properties>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	<!-- 为每一个mapper 注册 -->
+	<!-- <mappers>
+		<mapper resource="com.mybatis.dao/StudentDao.xml" />
+	</mappers> -->
 </configuration>

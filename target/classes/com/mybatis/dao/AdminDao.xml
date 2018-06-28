@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.AdminDao">
+	<!-- 由于在mybatis-config.xml 中配置了 <typeAliases> <package /></typeAliases> 
+	所有使用类时只需要类的名就行，而不需要加上包名
+	-->
+	<!-- <resultMap type="com.mybatis.pojo.Admin" id="Admin"> -->
+	<resultMap type="Admin" id="Admin">
+		<id column="ADMIN_ID" property="id" />
+		<result column="ADMIN_NAME" property="name" />
+		<result column="ADMIN_PASSWORD" property="password" />
+		<result column="ADMIN_DISABLE" property="disable" />
+		<association property="role" javaType="Role">
+			<id column="ROLE_ID" property="id" />
+			<result column="ROLE_NAME" property="name" />
+			<result column="ROLE_DESCRIBE" property="describe" />
+			<collection property="permissions"
+				javaType="java.util.ArrayList" ofType="Permission">
+				<id column="PERMISSIONS_ID" property="id" />
+				<result column="PERMISSIONS_NAME" property="name" />
+				<result column="PERMISSIONS_DESCRIBE" property="describe" />
+			</collection>
+		</association>
+	</resultMap>
+
+	<select id="finOne" resultMap="Admin">
+		select *
+		from admin_t ad
+		right join role_t ro
+		on ad.role_id = ro.role_id
+		right join role_permissions_t rop
+		on ro.role_id = rop.role_id
+		right join permissions_t pe
+		on rop.permissions_id = pe.permissions_id
+		where ad.admin_id = #{id}
+	</select>
+
+	<select id="findAll" resultMap="Admin">
+		select * from admin_t ad right join role_t ro on
+		ad.role_id = ro.role_id
+	</select>
+</mapper>

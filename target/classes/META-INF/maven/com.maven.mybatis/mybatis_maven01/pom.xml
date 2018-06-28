@@ -36,16 +36,21 @@
 			<version>4.3.17.RELEASE</version>
 		</dependency>
 
-
-		<!-- <dependency> <groupId>org.zenframework.z8.dependencies.commons</groupId> 
-			<artifactId>ojdbc6</artifactId> <version>2.0</version> </dependency> -->
-
-		<!-- oracle jdbc驱动包 -->
+		<!-- oracle jdbc驱动包  使用maven自行安装的Oracle驱动包-->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>1</version>
 		</dependency>
+		<!-- orcale jdbc驱动包 使用maven直接导入 -->
+		<!-- <dependency> <groupId>org.zenframework.z8.dependencies.commons</groupId> 
+			<artifactId>ojdbc6</artifactId> <version>2.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
+		<!-- <dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.4.0-atlassian-hosted</version>
+		</dependency> -->
 	</dependencies>
 
 </project>

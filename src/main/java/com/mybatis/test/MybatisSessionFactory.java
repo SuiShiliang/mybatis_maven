@@ -9,7 +9,6 @@ import com.mybatis.dao.StudentDao;
 import com.mybatis.pojo.Gender;
 import com.mybatis.pojo.Student;
 import com.mybatis.resource.AppConfig;
-import com.mybatis.service.StudentService;
 
 public class MybatisSessionFactory {
 
